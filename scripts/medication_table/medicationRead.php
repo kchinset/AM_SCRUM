@@ -8,14 +8,14 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 // Number of records to show on each page
 $records_per_page = 5;
 // Prepare the SQL statement and get records from our medications table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT * FROM medication ORDER BY patient_id LIMIT :current_page, :record_per_page');
+$stmt = $pdo->prepare('SELECT * FROM medications ORDER BY patient_id LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
 // Fetch the records so we can display them in our template.
 $medication = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Get the total number of medications, this is so we can determine whether there should be a next and previous button
-$num_medication = $pdo->query('SELECT COUNT(*) FROM medication')->fetchColumn();
+$num_medication = $pdo->query('SELECT COUNT(*) FROM medications')->fetchColumn();
 ?>
 <?=template_header('Read')?>
 
@@ -50,8 +50,8 @@ $num_medication = $pdo->query('SELECT COUNT(*) FROM medication')->fetchColumn();
                 <td><?=$medication['clarithromycin']?></td>
                 <td><?=$medication['inhaled_gentamicin']?></td>
                 <td class="actions">
-                    <a href="medicationUpdate.php?id=<?=$medication['med_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
-                    <a href="medicationDelete.php?id=<?=$medication['med_id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
+                    <a href="medicationUpdate.php?med_id=<?=$medication['med_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
+                    <a href="medicationDelete.php?med_id=<?=$medication['med_id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
                 </td>
             </tr>
             <?php endforeach; ?>
