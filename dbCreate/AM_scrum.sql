@@ -33,6 +33,16 @@ med_name VARCHAR(50) NOT NULL,
 PRIMARY KEY (med_id))
 ENGINE=INNODB DEFAULT CHARSET=utf8;
 
+CREATE TABLE visits
+(visit_id INT AUTO_INCREMENT NOT NULL,
+visit_date DATE NOT NULL,
+patient_id INT NOT NULL,
+doctor_id INT NOT NULL,
+PRIMARY KEY (visit_id),
+FOREIGN KEY (patient_id) REFERENCES patients (patient_id),
+FOREIGN KEY (doctor_id) REFERENCES doctors (doctor_id) ON DELETE CASCADE)
+ENGINE=INNODB DEFAULT CHARSET=utf8;
+
 CREATE TABLE prescriptions
 (presc_id INT AUTO_INCREMENT NOT NULL,
 med_id INT NOT NULL,
@@ -42,16 +52,6 @@ date_recieved DATE,
 PRIMARY KEY (presc_id),
 FOREIGN KEY (med_id) REFERENCES medications (med_id),
 FOREIGN KEY (visit_id) REFERENCES visits (visit_id) ON DELETE CASCADE)
-ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-CREATE TABLE visits
-(visit_id INT AUTO_INCREMENT NOT NULL,
-visit_date DATE NOT NULL,
-patient_id INT NOT NULL,
-doctor_id INT NOT NULL,
-PRIMARY KEY (visit_id),
-FOREIGN KEY (patient_id) REFERENCES patients (patient_id),
-FOREIGN KEY (doctor_id) REFERENCES doctors (doctor_id) ON DELETE CASCADE)
 ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE fev1_results
@@ -69,7 +69,7 @@ GRANT SELECT, INSERT, UPDATE
 ON patients
 TO 'kermit'@'localhost';
 GRANT SELECT, INSERT, UPDATE
-ON medication
+ON medications
 TO 'kermit'@'localhost';
 GRANT SELECT, INSERT, UPDATE
 ON doctors
