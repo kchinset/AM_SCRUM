@@ -39,7 +39,7 @@ visit_date DATE NOT NULL,
 patient_id INT NOT NULL,
 doctor_id INT NOT NULL,
 PRIMARY KEY (visit_id),
-FOREIGN KEY (patient_id) REFERENCES patients (patient_id),
+FOREIGN KEY (patient_id) REFERENCES patients (patient_id) ON DELETE CASCADE,
 FOREIGN KEY (doctor_id) REFERENCES doctors (doctor_id) ON DELETE CASCADE)
 ENGINE=INNODB DEFAULT CHARSET=utf8;
 
@@ -50,7 +50,7 @@ visit_id INT NOT NULL,
 presc_dosage VARCHAR(50),
 date_recieved DATE,
 PRIMARY KEY (presc_id),
-FOREIGN KEY (med_id) REFERENCES medications (med_id),
+FOREIGN KEY (med_id) REFERENCES medications (med_id) ON DELETE CASCADE,
 FOREIGN KEY (visit_id) REFERENCES visits (visit_id) ON DELETE CASCADE)
 ENGINE=INNODB DEFAULT CHARSET=utf8;
 
