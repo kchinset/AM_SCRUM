@@ -31,7 +31,7 @@ if (isset($_GET['med_id'])) {
 	<h2>Update Medication #<?=$medication['med_id']?></h2>
     <form action="medications_update.php?med_id=<?=$medication['med_id']?>" method="post">
         <label for="id">Medication ID</label>
-        <label for="name">Medication Name</label>
+        <label for="name">Medication Name</label><br>
         <input type="text" name="med_id" placeholder="1" value="<?=$medication['med_id']?>" id="id">
         <input type="text" name="med_name" placeholder="John Doe" value="<?=$medication['med_name']?>" id="name">
         <input type="submit" value="Update">
