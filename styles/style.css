@@ -176,11 +176,29 @@ body {
   	font-size: 14px;
   	color: #FFFFFF;
   	cursor: pointer;
-  	width: 200px;
+  	width: 400px;
 	margin-top: 15px;
 }
-.update form input[type="submit"]:hover {
-  	background-color: #32a367;
+.back-button {
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+    display: block;
+    background-color: #e53f3f;
+    border: 0;
+    font-weight: bold;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+    width: 400px;
+    margin-top: 15px;
+}
+.back-button:hover {
+    background-color: #972d2d;
+}
+.update-button-container {
+    clear: both;
+    margin-top: 15px;
 }
 .delete .yesno {
   	display: flex;

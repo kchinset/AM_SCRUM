@@ -29,13 +29,14 @@ if (isset($_GET['med_id'])) {
 
 <div class="content update">
 	<h2>Update Medication #<?=$medication['med_id']?></h2>
-    <form action="medications_update.php?med_id=<?=$medication['med_id']?>" method="post">
+    <form action="medicationUpdate.php?med_id=<?=$medication['med_id']?>" method="post">
         <label for="id">Medication ID</label>
         <label for="name">Medication Name</label><br>
         <input type="text" name="med_id" placeholder="1" value="<?=$medication['med_id']?>" id="id">
         <input type="text" name="med_name" placeholder="John Doe" value="<?=$medication['med_name']?>" id="name">
         <input type="submit" value="Update">
     </form>
+    <a href="medicationRead.php" class="back-button">Back</a>
     <?php if ($msg): ?>
     <p><?=$msg?></p>
     <?php endif; ?>
