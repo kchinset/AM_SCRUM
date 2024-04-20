@@ -48,11 +48,12 @@ CREATE TABLE prescriptions
 med_id INT NOT NULL,
 visit_id INT NOT NULL,
 presc_dosage VARCHAR(50),
-date_recieved DATE,
+date_received DATE,
 PRIMARY KEY (presc_id),
 FOREIGN KEY (med_id) REFERENCES medications (med_id) ON DELETE CASCADE,
 FOREIGN KEY (visit_id) REFERENCES visits (visit_id) ON DELETE CASCADE)
 ENGINE=INNODB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE fev1_results
 (fev1_id INT AUTO_INCREMENT NOT NULL,

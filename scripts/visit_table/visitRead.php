@@ -25,21 +25,22 @@ $num_visits = $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
 	<table>
         <thead>
             <tr>
+                <td>Visit ID</td>
                 <td>Visit Date</td>
                 <td>Patient ID</td>
-                <td>Doctor's Name</td>
-                <td></td>
+                <td>Doctor ID</td>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($visits as $visit): ?>
             <tr>
+                <td><?=$visit['visit_id']?></td>
                 <td><?=$visit['visit_date']?></td>
                 <td><?=$visit['patient_id']?></td>
-                <td><?=$visit['doctor_name']?></td>
+                <td><?=$visit['doctor_id']?></td>
                 <td class="actions">
-                    <a href="visitUpdate.php?id=<?=$visit['visit_date']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
-                    <a href="visitDelete.php?id=<?=$visit['visit_date']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
+                    <a href="visitUpdate.php?visit_id=<?=$visit['visit_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
+                    <a href="visitDelete.php?visit_id=<?=$visit['visit_id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
                 </td>
             </tr>
             <?php endforeach; ?>
