@@ -23,8 +23,8 @@ if (!empty($_POST)) {
     <form action="doctorCreate.php" method="post">
     <label for="id">Doctor ID</label>
         <label for="name">Doctor Name</label><br>
-        <input type="text" name="med_id" placeholder="1"value="auto" id="id">
-        <input type="text" name="med_name" placeholder="Bajaj" " id="name">
+        <input type="text" name="doctor_id" placeholder="1"value="auto" id="doctor_id">
+        <input type="text" name="doctor_name" placeholder="Bajaj" id="doctor_name">
         <input type="submit" value="Create">
     </form>
     <a href="doctorRead.php" class="back-button">Back</a>

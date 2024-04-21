@@ -26,7 +26,7 @@ $num_doctors = $pdo->query('SELECT COUNT(*) FROM doctors')->fetchColumn();
         <thead>
             <tr>
                 <td>Doctor ID</td>
-                <td>Doctor Name/td>
+                <td>Doctor Name</td>
                 <td></td>
             </tr>
         </thead>
