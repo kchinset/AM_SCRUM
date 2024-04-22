@@ -20,7 +20,7 @@
 		<span>
     <div class="content_three_home">
 		<h4>Register Patient</h4><br>
-    <button class="buttons_home">REGISTER</button><br><br>
+    <a href="'.WEB_ROOT.APP_FOLDER_NAME.'/scripts/patient_table/patientCreate.php"><button class="buttons_home">REGISTER</button></a><br><br>
     </div>
 		
 		</span>
