@@ -8,7 +8,7 @@
 
 
 
-<div class="content">
+<div class="content-landingPage">
 
 	
 	<div class="container_content_home">
@@ -20,7 +20,7 @@
 		<span>
     <div class="content_three_home">
 		<h4>Register Patient</h4><br>
-    <button class="buttons_home">REGISTER</button><br><br>
+    <a href="patient_table/patientCreate.php"><button class="buttons_home">REGISTER</button></a><br><br>
     </div>
 		
 		</span>
