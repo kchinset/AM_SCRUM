@@ -8,7 +8,7 @@
 
 
 
-<div class="content">
+<div class="content-landingPage">
 
 	
 	<div class="container_content_home">
