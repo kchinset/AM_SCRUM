@@ -25,8 +25,8 @@ INSERT INTO visits VALUES (3,"2024-01-05",3,1);
 INSERT INTO visits VALUES (4,"2024-02-24",4,1);
 INSERT INTO visits VALUES (5,"2024-03-15",5,1);
 
-INSERT INTO prescriptions VALUES (1,1,1,NULL,NULL);
-INSERT INTO prescriptions VALUES (2,3,1,"3mo.","2018-02-12");
+INSERT INTO prescriptions VALUES (1,1,1,NULL,NULL,NULL);
+INSERT INTO prescriptions VALUES (2,3,1,NULL,"3mo.","2018-02-12");
 
 INSERT INTO fev1_results VALUES (1,1,90);
 INSERT INTO fev1_results VALUES (2,1,85);
