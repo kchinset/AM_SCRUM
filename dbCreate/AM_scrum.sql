@@ -48,6 +48,7 @@ CREATE TABLE prescriptions
 med_id INT NOT NULL,
 visit_id INT NOT NULL,
 presc_dosage VARCHAR(50),
+presc_quantity VARCHAR(50),
 date_received DATE,
 PRIMARY KEY (presc_id),
 FOREIGN KEY (med_id) REFERENCES medications (med_id) ON DELETE CASCADE,
