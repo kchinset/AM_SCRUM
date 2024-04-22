@@ -35,6 +35,7 @@ if (isset($_GET['visit_id'])) {
 	<h2>Delete visit #<?=$visit['visit_id']?></h2>
     <?php if ($msg): ?>
     <p><?=$msg?></p>
+    <a href="visitRead.php" class="back-button">Back</a>
     <?php else: ?>
 	<p>Are you sure you want to delete visit #<?=$visit['visit_id']?>?</p>
     <div class="yesno">

@@ -37,15 +37,15 @@ $num_visits = $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
             <?php
             $stmt = $pdo->prepare('SELECT MAX(fev1_value) AS max_fev1 FROM fev1_results WHERE visit_id = ?');
             $stmt->execute([$visit['visit_id']]);
-            $fev1_results = $stmt->fetch(PDO::FETCH_ASSOC);
-            $maxFev1 = $fev1_results['max_fev1'];
+            $max_fev1 = $stmt->fetch(PDO::FETCH_ASSOC);
             ?>
             <tr>
                 <td><?=$visit['visit_id']?></td>
                 <td><?=$visit['visit_date']?></td>
                 <td><?=$visit['patient_id']?></td>
                 <td><?=$visit['doctor_id']?></td>
-                <td><a href="fev1ResultsRead.php?visit_id=<?=$visit['visit_id']?>"><?=$maxFev1?></a></td>
+                <td><?=($max_fev1['max_fev1'] !== null) ? $max_fev1['max_fev1'] : "No FEV1 value"?></td>
+
                 
                 <td class="actions">
                     <a href="visitUpdate.php?visit_id=<?=$visit['visit_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
