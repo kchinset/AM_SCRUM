@@ -43,14 +43,19 @@ if (isset($_GET['patient_id'])) {
         <label for="last_name">Last Name</label>
         <label for="gender">Gender</label>
         <input type="text" name="last_name" placeholder="Doe" value="<?=$patient['last_name']?>" id="last_name">
-        <input type="text" name="gender" placeholder="M/F/Other/Not Specified" value="<?=$patient['gender']?>" id="gender">
+        <select name="gender" id="gender" value="<?=$patient['gender']?>">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="Other">Other</option>
+            <option value="Not Specified">Not Specified</option>
+        </select>
         <label for="birthdate">Birthdate</label>
         <label for="genetics">Genetics</label>
-        <input type="text" name="birthdate" placeholder="04/26/2002" value="<?=$patient['birthdate']?>" id="birthdate">
+        <input type="date" name="birthdate" value="<?=$patient['birthdate']?>" id="birthdate">
         <input type="text" name="genetics" placeholder="ACGTACGTGT" value="<?=$patient['genetics']?>" id="genetics">
         <label for="diabetes">Diabetes</label>
         <label for="other_conditions">Other Conditions</label>
-        <input type="text" name="diabetes" placeholder="04/26/2002" value="<?=$patient['diabetes']?>" id="diabetes">
+        <input type="text" name="diabetes" placeholder="Y/N" value="<?=$patient['diabetes']?>" id="diabetes">
         <input type="text" name="other_conditions" placeholder="" value="<?=$patient['other_conditions']?>" id="other_conditions">
         <input type="submit" value="Update">
     </form>
