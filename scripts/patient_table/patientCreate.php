@@ -49,7 +49,7 @@ if (!empty($_POST)) {
         <input type="text" name="other_conditions" placeholder="" id="other_conditions">
         <input type="submit" value="Create">
     </form>
-    <a href="patientRead.php" class="back-button">Back</a>
+    <button onclick="window.history.back()" class="back-button">Back</button>
     </form>
     <?php if ($msg): ?>
     <p><?=$msg?></p>

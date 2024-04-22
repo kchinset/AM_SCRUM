@@ -18,6 +18,7 @@ function template_header($title) {
 		<meta charset="utf-8">
 		<title>Scrum Project</title>
 		<link href="'.WEB_ROOT.APP_FOLDER_NAME.'/styles/style.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-lha2Bm7TWT6kBc4Ffs3sj3WJZBsHN2K+rqU8KmSDiYva5pMaHVbD16Uax4muTVsU" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	   </head>
 	   <body>

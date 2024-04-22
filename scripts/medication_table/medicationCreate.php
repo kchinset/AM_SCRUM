@@ -3,6 +3,14 @@
 @include_once (APP_ROOT.APP_FOLDER_NAME . '/scripts/functions.php');
 $pdo = pdo_connect_mysql();
 $msg = '';
+
+// Fetch the last inserted ID from the prescriptions table
+$stmt = $pdo->query('SELECT MAX(med_id) AS max_id FROM medications');
+$max_id = $stmt->fetch(PDO::FETCH_ASSOC)['max_id'];
+
+// Increment the ID for the next prescription
+$new_med_id = $max_id + 1;
+
 // Check if POST data is not empty
 if (!empty($_POST)) {
     // Post data not empty insert a new record
@@ -21,13 +29,13 @@ if (!empty($_POST)) {
 <div class="content update">
 	<h2>Create Medication</h2>
     <form action="medicationCreate.php" method="post">
-    <label for="id">Medication ID</label>
+        <label for="id">Medication ID</label>
         <label for="name">Medication Name</label><br>
-        <input type="text" name="med_id" placeholder="1"value="auto" id="id">
-        <input type="text" name="med_name" placeholder="Eulexin" " id="name">
+        <input type="text" name="med_id" value="<?=$new_med_id?>" disabled>
+        <input type="text" name="med_name" placeholder="Eulexin" id="name">
         <input type="submit" value="Create">
     </form>
-    <a href="medicationRead.php" class="back-button">Back</a>
+    <button onclick="window.history.back()" class="back-button">Back</button>
     </form>
     <?php if ($msg): ?>
     <p><?=$msg?></p>

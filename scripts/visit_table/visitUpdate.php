@@ -42,7 +42,7 @@ if (isset($_GET['visit_id'])) {
         <input type="text" name="doctor_id" placeholder="M/F/Other/Not Specified" value="<?=$visit['doctor_id']?>" id="doctor_id">
         <input type="submit" value="Update">
     </form>
-    <a href="visitRead.php" class="back-button">Back</a>
+    <button onclick="window.history.back()" class="back-button">Back</button>
     <?php if ($msg): ?>
     <p><?=$msg?></p>
     <?php endif; ?>

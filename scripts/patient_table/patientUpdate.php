@@ -54,7 +54,7 @@ if (isset($_GET['patient_id'])) {
         <input type="text" name="other_conditions" placeholder="" value="<?=$patient['other_conditions']?>" id="other_conditions">
         <input type="submit" value="Update">
     </form>
-    <a href="patientRead.php" class="back-button">Back</a>
+    <button onclick="window.history.back()" class="back-button">Back</button>
     <?php if ($msg): ?>
     <p><?=$msg?></p>
     <?php endif; ?>

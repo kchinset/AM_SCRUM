@@ -36,7 +36,7 @@ if (isset($_GET['doctor_id'])) {
         <input type="text" name="doctor_name" placeholder="John" value="<?=$doctor['doctor_name']?>" id="doctor_name">
         <input type="submit" value="Update">
     </form>
-    <a href="doctorRead.php" class="back-button">Back</a>
+    <button onclick="window.history.back()" class="back-button">Back</button>
     <?php if ($msg): ?>
     <p><?=$msg?></p>
     <?php endif; ?>

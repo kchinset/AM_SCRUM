@@ -137,6 +137,20 @@ body {
   	color: #FFFFFF;
   	padding: 10px 12px;
 }
+#moreinfo {
+	display: inline-block;
+  	text-decoration: none;
+  	background-color: #9a9a9a;
+  	font-weight: bold;
+  	font-size: 14px;
+  	color: #FFFFFF;
+  	padding: 5px 15px;
+  	margin: 15px 0;
+}
+#moreinfo:hover {
+  	background-color: #5b5b5b;
+}
+
 .read table tbody tr td.actions .trash {
   	background-color: #b73737;
 }
@@ -148,6 +162,19 @@ body {
 }
 .read table tbody tr td.actions .edit:hover {
   	background-color: #319ca3;
+}
+.read table tbody tr td.actions .moreinfo {
+	background-color: #97f8ff;
+}
+.read table tbody tr td.actions .moreinfo:hover {
+	background-color: #6ddde5;
+}
+select {
+	padding: 10px;
+	width: 400px;
+	margin-right: 25px;
+	margin-bottom: 15px;
+	border: 1px solid #cccccc;
 }
 .update form {
   	padding: 15px 0;

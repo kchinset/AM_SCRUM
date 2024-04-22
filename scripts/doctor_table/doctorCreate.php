@@ -27,7 +27,7 @@ if (!empty($_POST)) {
         <input type="text" name="doctor_name" placeholder="Bajaj" id="doctor_name">
         <input type="submit" value="Create">
     </form>
-    <a href="doctorRead.php" class="back-button">Back</a>
+    <button onclick="window.history.back()" class="back-button">Back</button>
     </form>
     <?php if ($msg): ?>
     <p><?=$msg?></p>

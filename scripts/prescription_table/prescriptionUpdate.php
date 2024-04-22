@@ -48,7 +48,7 @@ if (isset($_GET['presc_id'])) {
         <input type="text" name="date_received" placeholder="1" value="<?=$prescription['date_received']?>" id="date_received">
         <input type="submit" value="Update">
     </form>
-    <a href="prescriptionRead.php" class="back-button">Back</a>
+    <button onclick="window.history.back()" class="back-button">Back</button>
     <?php if ($msg): ?>
     <p><?=$msg?></p>
     <?php endif; ?>

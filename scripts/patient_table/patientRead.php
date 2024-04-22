@@ -48,6 +48,7 @@ $num_patients = $pdo->query('SELECT COUNT(*) FROM patients')->fetchColumn();
                 <td><?=$patient['diabetes']?></td>
                 <td><?=$patient['other_conditions']?></td>
                 <td class="actions">
+                    <a href="patientMoreInfo.php?patient_id=<?=$patient['patient_id']?>" id="moreinfo">More Info</a>
                     <a href="patientUpdate.php?patient_id=<?=$patient['patient_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
                     <a href="patientDelete.php?patient_id=<?=$patient['patient_id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
                 </td>

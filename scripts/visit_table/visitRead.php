@@ -8,7 +8,7 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 // Number of records to show on each page
 $records_per_page = 5;
 // Prepare the SQL statement and get records from our visits table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT * FROM visits ORDER BY visit_date LIMIT :current_page, :record_per_page');
+$stmt = $pdo->prepare('SELECT * FROM visits ORDER BY visit_date DESC LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
