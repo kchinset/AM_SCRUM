@@ -20,8 +20,8 @@ $num_medication = $pdo->query('SELECT COUNT(*) FROM medications')->fetchColumn()
 <?=template_header('Read')?>
 
 <div class="content read">
-	<h2>Read medication</h2>
-	<a href="medicationCreate.php" class="create-contact">Create medication</a>
+	<h2>Read Medications</h2>
+	<a href="medicationCreate.php" class="create-contact">Create Medication</a>
 	<table>
         <thead>
             <tr>

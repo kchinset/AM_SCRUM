@@ -8,7 +8,16 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 // Number of records to show on each page
 $records_per_page = 5;
 // Prepare the SQL statement and get records from our visits table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT * FROM visits ORDER BY visit_date DESC LIMIT :current_page, :record_per_page');
+$stmt = $pdo->prepare('
+    SELECT v.*, 
+           p.first_name AS patient_first_name, 
+           p.last_name AS patient_last_name,
+           d.doctor_name
+    FROM visits v 
+    JOIN patients p ON v.patient_id = p.patient_id 
+    JOIN doctors d ON v.doctor_id = d.doctor_id
+    ORDER BY v.visit_date DESC 
+    LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
@@ -20,15 +29,17 @@ $num_visits = $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
 <?=template_header('Read')?>
 
 <div class="content read">
-	<h2>Read Visits</h2>
-	<a href="visitCreate.php" class="create-contact">Create visit</a>
-	<table>
+    <h2>Read Visits</h2>
+    <a href="visitCreate.php" class="create-contact">Create Visit</a>
+    <table>
         <thead>
             <tr>
                 <td>Visit ID</td>
                 <td>Visit Date</td>
                 <td>Patient ID</td>
+                <td>Patient Name</td>
                 <td>Doctor ID</td>
+                <td>Doctor Name</td>
                 <td>Highest FEV1 Value</td>
             </tr>
         </thead>
@@ -43,10 +54,12 @@ $num_visits = $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
                 <td><?=$visit['visit_id']?></td>
                 <td><?=$visit['visit_date']?></td>
                 <td><?=$visit['patient_id']?></td>
+                <td><?=$visit['patient_first_name'] . ' ' . $visit['patient_last_name']?></td>
                 <td><?=$visit['doctor_id']?></td>
+                <td><?=$visit['doctor_name']?></td>
                 <td><?=($max_fev1['max_fev1'] !== null) ? $max_fev1['max_fev1'] : "No FEV1 value"?></td>
 
-                
+
                 <td class="actions">
                     <a href="visitMoreInfo.php?visit_id=<?=$visit['visit_id']?>" id="moreinfo">More Info</a>
                     <a href="visitUpdate.php?visit_id=<?=$visit['visit_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
@@ -56,14 +69,14 @@ $num_visits = $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
             <?php endforeach; ?>
         </tbody>
     </table>
-	<div class="pagination">
-		<?php if ($page > 1): ?>
-		<a href="visitRead.php?page=<?=$page-1?>"><i class="fas fa-angle-double-left fa-sm"></i></a>
-		<?php endif; ?>
-		<?php if ($page*$records_per_page < $num_visits): ?>
-		<a href="visitRead.php?page=<?=$page+1?>"><i class="fas fa-angle-double-right fa-sm"></i></a>
-		<?php endif; ?>
-	</div>
+    <div class="pagination">
+        <?php if ($page > 1): ?>
+        <a href="visitRead.php?page=<?=$page-1?>"><i class="fas fa-angle-double-left fa-sm"></i></a>
+        <?php endif; ?>
+        <?php if ($page*$records_per_page < $num_visits): ?>
+        <a href="visitRead.php?page=<?=$page+1?>"><i class="fas fa-angle-double-right fa-sm"></i></a>
+        <?php endif; ?>
+    </div>
 </div>
 
 

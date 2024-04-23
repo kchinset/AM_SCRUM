@@ -20,8 +20,8 @@ $num_patients = $pdo->query('SELECT COUNT(*) FROM patients')->fetchColumn();
 <?=template_header('Read')?>
 
 <div class="content read">
-	<h2>Read patients</h2>
-	<a href="patientCreate.php" class="create-contact">Create patient</a>
+	<h2>Read Patients</h2>
+	<a href="patientCreate.php" class="create-contact">Create Patient</a>
 	<table>
         <thead>
             <tr>
