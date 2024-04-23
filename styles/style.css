@@ -11,9 +11,13 @@ body {
 }
 .navtop {
   	background-color: #376ab7;
-  	height: 60px;
+  	height: 80px;
   	width: 100%;
   	border: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
 }
 .navtop div {
   	display: flex;
@@ -35,13 +39,13 @@ body {
   	font-weight: normal;
 }
 .navtop div a {
-  	padding: 0 20px;
+  	padding: 0 10px;
   	text-decoration: none;
   	color: #c5d2e5;
   	font-weight: bold;
 }
 .navtop div a i {
-  	padding: 2px 8px 0 0;
+  	padding: 8px;
 }
 .navtop div a:hover {
   	color: #ecf0f6;
