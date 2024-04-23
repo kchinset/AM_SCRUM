@@ -19,7 +19,7 @@
 		<span id="span_content_three_home">
 		<span>
     <div class="content_three_home">
-		<h4>Register Patient</h4><br>
+		<h4 class="homepage">Register Patient</h4><br>
     <a href="patient_table/patientCreate.php"><button class="buttons_home">REGISTER</button></a><br><br>
     </div>
 		

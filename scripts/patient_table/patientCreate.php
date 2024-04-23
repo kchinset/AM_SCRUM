@@ -59,7 +59,7 @@ if (!empty($_POST)) {
         <label for="diabetes">Diabetes</label>
         <label for="other_conditions">Other Conditions</label>
         <input type="text" name="diabetes" placeholder="Y/N" id="diabetes">
-        <input type="text" name="other_conditions" placeholder="" id="other_conditions">
+        <input type="text" name="other_conditions" placeholder="None" id="other_conditions">
         <input type="submit" value="Create">
     </form>
     <button onclick="window.history.back()" class="back-button">Back</button>
