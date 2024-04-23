@@ -48,6 +48,7 @@ $num_visits = $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
 
                 
                 <td class="actions">
+                    <a href="visitMoreInfo.php?visit_id=<?=$visit['visit_id']?>" id="moreinfo">More Info</a>
                     <a href="visitUpdate.php?visit_id=<?=$visit['visit_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
                     <a href="visitDelete.php?visit_id=<?=$visit['visit_id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
                 </td>
