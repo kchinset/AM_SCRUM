@@ -10,7 +10,7 @@ if (isset($_GET['patient_id'])) {
     $stmt->execute([$_GET['patient_id']]);
     $patient = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$patient) {
-        exit('Contact doesn\'t exist with that ID!');
+        exit('Patient doesn\'t exist with that ID!');
     }
     // Make sure the user confirms before deletion
     if (isset($_GET['confirm'])) {
@@ -18,7 +18,7 @@ if (isset($_GET['patient_id'])) {
             // User clicked the "Yes" button, delete record
             $stmt = $pdo->prepare('DELETE FROM patients WHERE patient_id = ?');
             $stmt->execute([$_GET['patient_id']]);
-            $msg = 'You have deleted the contact!';
+            $msg = 'You have deleted the patient!';
         } else {
             // User clicked the "No" button, redirect them back to the read page
             header('Location: patientRead.php');

@@ -43,11 +43,11 @@ if (isset($_GET['patient_id'])) {
         <label for="last_name">Last Name</label>
         <label for="gender">Gender</label>
         <input type="text" name="last_name" placeholder="Doe" value="<?=$patient['last_name']?>" id="last_name">
-        <select name="gender" id="gender" value="<?=$patient['gender']?>">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="Other">Other</option>
-            <option value="Not Specified">Not Specified</option>
+        <select name="gender" id="gender">
+            <option value="M" <?=$patient['gender'] == 'M' ? 'selected' : ''?>>Male</option>
+            <option value="F" <?=$patient['gender'] == 'F' ? 'selected' : ''?>>Female</option>
+            <option value="Other" <?=$patient['gender'] == 'Other' ? 'selected' : ''?>>Other</option>
+            <option value="Not Specified" <?=$patient['gender'] == 'Not Specified' ? 'selected' : ''?>>Not Specified</option>
         </select>
         <label for="birthdate">Birthdate</label>
         <label for="genetics">Genetics</label>

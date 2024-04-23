@@ -11,10 +11,11 @@ if (isset($_GET['presc_id'])) {
         $med_id = isset($_POST['med_id']) ? $_POST['med_id'] : '';
         $visit_id = isset($_POST['visit_id']) ? $_POST['visit_id'] : '';
         $presc_dosage = isset($_POST['presc_dosage']) ? $_POST['presc_dosage'] : '';
+        $presc_quantity = isset($_POST['presc_quantity']) ? $_POST['presc_quantity'] : '';
         $date_received = isset($_POST['date_received']) ? $_POST['date_received'] : '';
         // Update the record
-        $stmt = $pdo->prepare('UPDATE prescriptions SET presc_id = ?, med_id = ?, visit_id = ?, presc_dosage = ?, date_received = ? WHERE presc_id = ?');
-        $stmt->execute([$presc_id, $med_id, $visit_id, $presc_dosage, $date_received, $_GET['presc_id']]);
+        $stmt = $pdo->prepare('UPDATE prescriptions SET presc_id = ?, med_id = ?, visit_id = ?, presc_dosage = ?, presc_quantity = ?, date_received = ? WHERE presc_id = ?');
+        $stmt->execute([$presc_id, $med_id, $visit_id, $presc_dosage, $presc_quantity, $date_received, $_GET['presc_id']]);
         $msg = 'Updated Successfully!';
     }
     // Get the contact from the prescriptionss table
@@ -35,17 +36,18 @@ if (isset($_GET['presc_id'])) {
     <form action="prescriptionUpdate.php?presc_id=<?=$prescription['presc_id']?>" method="post">
         <label for="presc_id">Prescription ID</label>
         <label for="med_id">Med ID</label>
-        <input type="text" name="presc_id" placeholder="1" value="<?=$prescription['presc_id']?>" id="presc_id">
-        <input type="text" name="med_id" placeholder="Med ID" value="<?=$prescription['med_id']?>" id="med_id">
+        <input type="text" name="presc_id" value="<?=$prescription['presc_id']?>" id="presc_id">
+        <input type="text" name="med_id" value="<?=$prescription['med_id']?>" id="med_id">
 
         <label for="visit_id">Visit ID</label>
-        <label for="presc_dosage">Prescription Dosage</label>
-        <input type="text" name="visit_id" placeholder="2" value="<?=$prescription['visit_id']?>" id="visit_id">
-        <input type="text" name="presc_dosage" placeholder="50mg" value="<?=$prescription['presc_dosage']?>" id="presc_dosage">
+        <label for="presc_dosage">Prescription Type/Dosage</label>
+        <input type="text" name="visit_id" value="<?=$prescription['visit_id']?>" id="visit_id">
+        <input type="text" name="presc_dosage" value="<?=$prescription['presc_dosage']?>" id="presc_dosage">
 
         <label for="date_received">Date Received</label>
-        <label for=""></label>
-        <input type="text" name="date_received" placeholder="1" value="<?=$prescription['date_received']?>" id="date_received">
+        <label for="presc_quantity">Prescription Quantity</label>
+        <input type="text" name="date_received" value="<?=$prescription['date_received']?>" id="date_received">
+        <input type="text" name="presc_quantity" value="<?=$prescription['presc_quantity']?>" id="date_received">
         <input type="submit" value="Update">
     </form>
     <button onclick="window.history.back()" class="back-button">Back</button>

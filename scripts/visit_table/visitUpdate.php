@@ -39,7 +39,18 @@ if (isset($_GET['visit_id'])) {
         <label for="patient_id">Patient ID</label>
         <label for="doctor_id">Doctor ID</label>
         <input type="text" name="patient_id" placeholder="Doe" value="<?=$visit['patient_id']?>" id="patient_id">
-        <input type="text" name="doctor_id" placeholder="M/F/Other/Not Specified" value="<?=$visit['doctor_id']?>" id="doctor_id">
+        <select name="doctor_id" id="doctor_id">
+            <option value="">Select Doctor ID</option>
+            <?php
+            // Fetch doctor IDs and names from the database
+            $stmt = $pdo->query('SELECT doctor_id, doctor_name FROM doctors');
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                // Check if the current doctor ID matches the one associated with the visit
+                $selected = ($row['doctor_id'] == $visit['doctor_id']) ? 'selected' : '';
+                echo '<option value="' . $row['doctor_id'] . '" ' . $selected . '>' . $row['doctor_id'] . ' - ' . $row['doctor_name'] . '</option>';
+            }
+            ?>
+        </select>
         <input type="submit" value="Update">
     </form>
     <button onclick="window.history.back()" class="back-button">Back</button>

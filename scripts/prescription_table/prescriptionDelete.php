@@ -10,7 +10,7 @@ if (isset($_GET['presc_id'])) {
     $stmt->execute([$_GET['presc_id']]);
     $presc = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$presc) {
-        exit('Contact doesn\'t exist with that ID!');
+        exit('Prescription doesn\'t exist with that ID!');
     }
     // Make sure the user confirms before deletion
     if (isset($_GET['confirm'])) {
@@ -18,7 +18,7 @@ if (isset($_GET['presc_id'])) {
             // User clicked the "Yes" button, delete record
             $stmt = $pdo->prepare('DELETE FROM prescriptions WHERE presc_id = ?');
             $stmt->execute([$_GET['presc_id']]);
-            $msg = 'You have deleted the contact!';
+            $msg = 'You have deleted the prescription!';
         } else {
             // User clicked the "No" button, redirect them back to the read page
             header('Location: prescriptionRead.php');

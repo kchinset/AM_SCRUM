@@ -16,7 +16,7 @@ $stmt = $pdo->prepare('
     FROM visits v 
     JOIN patients p ON v.patient_id = p.patient_id 
     JOIN doctors d ON v.doctor_id = d.doctor_id
-    ORDER BY v.visit_date DESC 
+    ORDER BY v.visit_id DESC
     LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
@@ -77,7 +77,9 @@ $num_visits = $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
         <a href="visitRead.php?page=<?=$page+1?>"><i class="fas fa-angle-double-right fa-sm"></i></a>
         <?php endif; ?>
     </div>
+    <a href="/CIS4033/AM_SCRUM/scripts/fev1_table/fev1Read.php" class="create-contact">Read FEV1 Values</a>
 </div>
+
 
 
 <?=template_footer()?>

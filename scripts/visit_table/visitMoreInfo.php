@@ -21,29 +21,20 @@ if ($visit_id) {
         JOIN doctors d ON v.doctor_id = d.doctor_id
         WHERE v.visit_id = :visit_id');
     $stmt->execute([':visit_id' => $visit_id]);
-    $visits = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} else {
-    // If visit ID is not provided, fetch all visits
-    // Get the page via GET request (URL param: page), if non exists default the page to 1
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-    // Number of records to show on each page
-    $records_per_page = 5;
-    // Prepare the SQL statement and get records from our visits table, LIMIT will determine the page
+    $visit = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Prepare the SQL statement to fetch FEV values for the visit
     $stmt = $pdo->prepare('
-        SELECT v.*, 
-               p.first_name AS patient_first_name, 
-               p.last_name AS patient_last_name,
-               d.doctor_name
-        FROM visits v 
-        JOIN patients p ON v.patient_id = p.patient_id 
-        JOIN doctors d ON v.doctor_id = d.doctor_id
-        ORDER BY v.visit_date DESC 
-        LIMIT :current_page, :record_per_page');
-    $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
-    $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
-    $stmt->execute();
-    // Fetch the records so we can display them in our template.
-    $visits = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        SELECT fev1_id, fev1_value
+        FROM fev1_results
+        WHERE visit_id = :visit_id');
+    $stmt->execute([':visit_id' => $visit_id]);
+    $fev_values = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // If visit ID is not provided, display an error message or redirect as needed
+    // For example:
+    // header('Location: error_page.php');
+    // exit;
 }
 
 ?>
@@ -51,8 +42,7 @@ if ($visit_id) {
 <?=template_header('Read')?>
 
 <div class="content read">
-    <h2>Read Visits</h2>
-    <a href="visitCreate.php" class="create-contact">Create Visit</a>
+    <h2>More Information for Visit #<?=$visit['visit_id']?></h2>
     <table>
         <thead>
             <tr>
@@ -66,12 +56,6 @@ if ($visit_id) {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($visits as $visit): ?>
-            <?php
-            $stmt = $pdo->prepare('SELECT MAX(fev1_value) AS max_fev1 FROM fev1_results WHERE visit_id = ?');
-            $stmt->execute([$visit['visit_id']]);
-            $max_fev1 = $stmt->fetch(PDO::FETCH_ASSOC);
-            ?>
             <tr>
                 <td><?=$visit['visit_id']?></td>
                 <td><?=$visit['visit_date']?></td>
@@ -79,15 +63,48 @@ if ($visit_id) {
                 <td><?=$visit['patient_first_name'] . ' ' . $visit['patient_last_name']?></td>
                 <td><?=$visit['doctor_id']?></td>
                 <td><?=$visit['doctor_name']?></td>
-                <td><?=($max_fev1['max_fev1'] !== null) ? $max_fev1['max_fev1'] : "No FEV1 value"?></td>
-
+                <td>
+                    <?php
+                    // Find the highest FEV1 value
+                    $stmt = $pdo->prepare('SELECT MAX(fev1_value) AS max_fev1 FROM fev1_results WHERE visit_id = ?');
+                    $stmt->execute([$visit_id]);
+                    $max_fev1 = $stmt->fetch(PDO::FETCH_ASSOC);
+                    echo ($max_fev1['max_fev1'] !== null) ? $max_fev1['max_fev1'] : "No FEV1 value";
+                    ?>
+                </td>
                 <td class="actions">
                     <a href="visitUpdate.php?visit_id=<?=$visit['visit_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
                     <a href="visitDelete.php?visit_id=<?=$visit['visit_id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
                 </td>
             </tr>
-            <?php endforeach; ?>
         </tbody>
     </table>
+</div>
+
+<div class="content read">
+    <h2>FEV1 Values for Visit #<?=$visit_id?></h2>
+    <a href="/CIS4033/AM_SCRUM/scripts/fev1_table/fev1Create.php?visit_id=<?=$visit['visit_id']?>" class="create-contact">Add FEV1 Value</a>
+    <table>
+        <thead>
+            <tr>
+                <td>FEV1 ID</td>
+                <td>FEV1 Value</td>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($fev_values as $fev_value): ?>
+            <tr>
+                <td><?=$fev_value['fev1_id']?></td>
+                <td><?=$fev_value['fev1_value']?></td>
+                <td class="actions">
+                    <a href="/CIS4033/AM_SCRUM/scripts/fev1_table/fev1Delete.php?fev1_id=<?=$fev_value['fev1_id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+
+        </tbody>
+    </table>
+    
+</div>
 
 <?=template_footer()?>

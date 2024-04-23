@@ -32,7 +32,7 @@ if (!empty($_POST)) {
     <label for="id">Doctor ID</label>
         <label for="name">Doctor Name</label><br>
         <input type="text" name="doctor_id" value="<?=$new_doc_id?>" id="doctor_id" disabled> 
-        <input type="text" name="doctor_name" placeholder=" Dr. Bajaj" id="doctor_name">
+        <input type="text" name="doctor_name" placeholder="Dr. Bajaj" id="doctor_name">
         <input type="submit" value="Create">
     </form>
     <button onclick="window.history.back()" class="back-button">Back</button>

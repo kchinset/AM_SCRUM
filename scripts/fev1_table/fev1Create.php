@@ -4,90 +4,63 @@
 $pdo = pdo_connect_mysql();
 $msg = '';
 
-// Fetch the last inserted ID from the prescriptions table
-$stmt = $pdo->query('SELECT MAX(visit_id) AS max_id FROM visits');
+// Fetch the last inserted ID from the fev1_results table
+$stmt = $pdo->query('SELECT MAX(fev1_id) AS max_id FROM fev1_results');
 $max_id = $stmt->fetch(PDO::FETCH_ASSOC)['max_id'];
+// Increment the ID for the next fev1 result
+$new_fev1_id = $max_id + 1;
 
-// Increment the ID for the next prescription
-$new_visit_id = $max_id + 1;
+// Initialize variables
+$visit_id = isset($_GET['visit_id']) ? $_GET['visit_id'] : null;
 
-// Check if patient ID is passed as a parameter
-if (isset($_GET['patient_id'])) {
-    // Fetch patient details based on the passed patient ID
-    $stmt = $pdo->prepare('SELECT * FROM patients WHERE patient_id = ?');
-    $stmt->execute([$_GET['patient_id']]);
-    $patient = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Check if patient exists
-    if (!$patient) {
-        exit('Patient not found!');
-    }
+// Check if visit ID is not provided in the URL
+if (!$visit_id) {
+    // If visit ID is not provided, allow manual input
+    $visit_id_input = isset($_POST['visit_id']) ? $_POST['visit_id'] : '';
+} else {
+    $visit_id_input = $visit_id;
 }
 
 // Check if POST data is not empty
 if (!empty($_POST)) {
     // Post data not empty insert a new record
     // Set-up the variables that are going to be inserted
-    $visit_id = $new_visit_id;
-    $visit_date = isset($_POST['visit_date']) ? $_POST['visit_date'] : '';
-    $patient_id = isset($_POST['patient_id']) ? $_POST['patient_id'] : NULL;
-    $doctor_id = isset($_POST['doctor_id']) ? $_POST['doctor_id'] : '';
+    $fev1_id = $new_fev1_id;
+    $visit_id = $visit_id_input; // Use the manually input visit ID if provided
+    $fev1_value = isset($_POST['fev1_value']) ? $_POST['fev1_value'] : '';
 
     // Insert the record
-    $stmt = $pdo->prepare('INSERT INTO visits (visit_date, patient_id, doctor_id) VALUES (?, ?, ?)');
-    $stmt->execute([$visit_date, $patient_id, $doctor_id]);
+    $stmt = $pdo->prepare('INSERT INTO fev1_results (fev1_id, visit_id, fev1_value) VALUES (?, ?, ?)');
+    $stmt->execute([$fev1_id, $visit_id, $fev1_value]);
     
-    // Get the last inserted visit_id
-    $last_visit_id = $pdo->lastInsertId();
-
-    $msg = 'Visit created successfully! Visit ID: ' . $new_visit_id;
+    $msg = 'FEV1 result created successfully!';
 }
 ?>
 
 <?=template_header('Create')?>
 
 <div class="content update">
-    <h2>Create Visit <?php if(isset($patient)) echo 'for Patient #' . $patient['patient_id']; ?></h2>
-    <form action="visitCreate.php<?=isset($_GET['patient_id']) ? '?patient_id=' . $_GET['patient_id'] : ''?>" method="post">
-    <label for="visit_id">Visit ID</label>
-        <input type="text" name="visit_id" value="<?=$new_visit_id?>" disabled>
-        <label for="visit_date">Visit Date</label>
-        <input type="date" name="visit_date" id="visit_date">
-        <?php if(isset($patient)): ?>
-        <input type="hidden" name="patient_id" value="<?=$patient['patient_id']?>">
-        <label>Patient ID</label>
-        <input type="text" value="<?=$patient['patient_id']?>" disabled>
+    <h2>Create FEV1 Result</h2>
+    <form action="fev1Create.php<?=isset($_GET['visit_id']) ? '?visit_id=' . $_GET['visit_id'] : ''?>" method="post">
+        <label for="fev1_id">FEV1 ID</label>
+        <input type="text" name="fev1_id" value="<?=$new_fev1_id?>" disabled>
+        <?php if (!$visit_id): ?>
+        <!-- Allow manual input for visit ID if not provided in the URL -->
+        <label for="visit_id">Visit ID</label>
+        <input type="number" name="visit_id" id="visit_id" value="<?=$visit_id_input?>">
         <?php else: ?>
-        <label for="patient_id">Patient ID</label>
-        <select name="patient_id" id="patient_id">
-            <option value="">Select Patient ID</option>
-            <?php
-            // Fetch all patient IDs from the database
-            $stmt = $pdo->query('SELECT patient_id, first_name, last_name FROM patients');
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo '<option value="' . $row['patient_id'] . '">' . $row['patient_id'] . ' - ' . $row['first_name']. ' ' . $row['last_name']. '</option>';
-            }
-            ?>
-        </select>
+        <!-- Display the visit ID if provided in the URL -->
+        <label for="visit_id">Visit ID</label>
+        <input type="text" name="visit_id" value="<?=$visit_id?>" disabled>
         <?php endif; ?>
-        <label for="doctor_id">Doctor ID</label>
-        <select name="doctor_id" id="doctor_id">
-            <option value="">Select Doctor ID</option>
-            <?php
-            // Fetch doctor IDs and names from the database
-            $stmt = $pdo->query('SELECT doctor_id, doctor_name FROM doctors');
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo '<option value="' . $row['doctor_id'] . '">' . $row['doctor_id'] . ' - ' . $row['doctor_name'] . '</option>';
-            }
-            ?>
-        </select>
+        <label for="fev1_value">FEV1 Value</label>
+        <input type="number" name="fev1_value" id="fev1_value">
         <input type="submit" value="Create">
     </form>
     <button onclick="window.history.back()" class="back-button">Back</button>
     <?php if ($msg): ?>
-    <p><?=$msg?></p>
+        <p><?=$msg?></p>
     <?php endif; ?>
 </div>
 
 <?=template_footer()?>
-
