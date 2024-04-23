@@ -29,6 +29,7 @@ $num_prescriptions = $pdo->query('SELECT COUNT(*) FROM prescriptions')->fetchCol
                 <td>Medication ID</td>
                 <td>Visit ID</td>
                 <td>Prescription Dosage</td>
+                <td>Prescription Quantity</td>
                 <td>Date Received</td>
                 <td></td>
             </tr>
@@ -40,6 +41,7 @@ $num_prescriptions = $pdo->query('SELECT COUNT(*) FROM prescriptions')->fetchCol
                 <td><?=$prescription['med_id']?></td>
                 <td><?=$prescription['visit_id']?></td>
                 <td><?=$prescription['presc_dosage']?></td>
+                <td><?=$prescription['presc_quantity']?></td>
                 <td><?=$prescription['date_received']?></td>
                 <td class="actions">
                     <a href="prescriptionUpdate.php?presc_id=<?=$prescription['presc_id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
