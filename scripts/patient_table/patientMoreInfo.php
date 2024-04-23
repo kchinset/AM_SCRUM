@@ -31,7 +31,7 @@ if (isset($_GET['patient_id'])) {
     // Iterate through each visit
     foreach ($visits as $visit) {
         // Fetch prescriptions for each visit
-        $stmt = $pdo->prepare('SELECT * FROM prescriptions WHERE visit_id = ?');
+        $stmt = $pdo->prepare('SELECT * FROM prescriptions WHERE visit_id = ? ORDER BY date_received DESC');
         $stmt->execute([$visit['visit_id']]);
         $prescriptions[$visit['visit_id']] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

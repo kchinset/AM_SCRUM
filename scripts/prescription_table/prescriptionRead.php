@@ -18,7 +18,7 @@ $stmt = $pdo->prepare('
     JOIN medications m ON p.med_id = m.med_id
     JOIN visits v ON p.visit_id = v.visit_id
     JOIN patients pt ON v.patient_id = pt.patient_id
-    ORDER BY p.presc_id
+    ORDER BY p.date_received DESC
     LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);

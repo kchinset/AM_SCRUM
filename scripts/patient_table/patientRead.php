@@ -8,7 +8,7 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 // Number of records to show on each page
 $records_per_page = 5;
 // Prepare the SQL statement and get records from our patients table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT *, YEAR(CURRENT_DATE) - YEAR(birthdate) AS age FROM patients ORDER BY patient_id LIMIT :current_page, :record_per_page');
+$stmt = $pdo->prepare('SELECT *, YEAR(CURRENT_DATE) - YEAR(birthdate) AS age FROM patients ORDER BY last_name ASC LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
