@@ -16,7 +16,7 @@ $stmt = $pdo->prepare('
     FROM visits v 
     JOIN patients p ON v.patient_id = p.patient_id 
     JOIN doctors d ON v.doctor_id = d.doctor_id
-    ORDER BY v.visit_id DESC
+    ORDER BY v.visit_date DESC
     LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
