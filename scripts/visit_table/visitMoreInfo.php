@@ -104,7 +104,7 @@ if ($visit_id) {
 
         </tbody>
     </table>
-    
+    <button onclick="window.history.back()" class="back-button">Back</button>
 </div>
 
 <?=template_footer()?>
