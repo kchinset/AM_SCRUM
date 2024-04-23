@@ -37,11 +37,12 @@ if (!empty($_POST)) {
     $med_id = isset($_POST['med_id']) ? $_POST['med_id'] : '';
     $visit_id = isset($_POST['visit_id']) ? $_POST['visit_id'] : '';
     $presc_dosage = isset($_POST['presc_dosage']) ? $_POST['presc_dosage'] : '';
+    $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : '';
     $date_received = isset($_POST['date_received']) ? $_POST['date_received'] : '';
 
     // Insert the record
-    $stmt = $pdo->prepare('INSERT INTO prescriptions VALUES (?, ?, ?, ?, ?)');
-    $stmt->execute([$presc_id, $med_id, $visit_id, $presc_dosage, $date_received]);
+    $stmt = $pdo->prepare('INSERT INTO prescriptions VALUES (?, ?, ?, ?, ?, ?)');
+    $stmt->execute([$presc_id, $med_id, $visit_id, $presc_dosage, $quantity, $date_received]);
     $msg = 'Created Successfully!';
 }
 ?>
@@ -72,9 +73,14 @@ if (!empty($_POST)) {
                     <option value="<?=$visit['visit_id']?>"><?=$visit['visit_id']?> - <?=$visit['visit_date']?></option>
                 <?php endforeach; ?>
             </select>
+        <?php else: ?>
+            <label for="visit_id">Visit ID</label>
+            <input type="text" name="visit_id" placeholder="Visit ID">
         <?php endif; ?>
         <label for="presc_dosage">Prescription Dosage</label>
         <input type="text" name="presc_dosage" placeholder="Prescription Dosage" id="presc_dosage">
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity">
         <label for="date_received">Date Received</label>
         <input type="date" name="date_received" id="date_received">
         <input type="submit" value="Create">
